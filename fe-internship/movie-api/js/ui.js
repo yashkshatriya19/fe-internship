@@ -1,30 +1,30 @@
-export function showLoading(loadingElement) {
+export function showLoading(element) {
 
-    loadingElement.style.display = "block";
+    element.style.display = "block";
 
 }
 
 
-export function hideLoading(loadingElement) {
+export function hideLoading(element) {
 
-    loadingElement.style.display = "none";
+    element.style.display = "none";
 
 }
 
 
 export function showError(
-    errorElement,
+    element,
     message
 ) {
 
-    errorElement.textContent = message;
+    element.textContent = message;
 
 }
 
 
-export function clearError(errorElement) {
+export function clearError(element) {
 
-    errorElement.textContent = "";
+    element.textContent = "";
 
 }
 
@@ -45,10 +45,15 @@ export function hideNoResults(element) {
 
 export function displayMovies(
     movies,
-    moviesContainer
+    container,
+    resultCount
 ) {
 
-    moviesContainer.innerHTML = "";
+    container.innerHTML = "";
+
+
+    resultCount.textContent =
+        `${movies.length} results`;
 
 
     movies.forEach(movie => {
@@ -56,24 +61,29 @@ export function displayMovies(
         const card =
             document.createElement("article");
 
-        card.classList.add("movie-card");
+        card.classList.add(
+            "movie-card"
+        );
 
 
         const image =
             document.createElement("img");
 
         image.src = movie.Poster;
+
         image.alt = movie.Title;
 
 
         const info =
             document.createElement("div");
 
-        info.classList.add("movie-info");
+        info.classList.add(
+            "movie-info"
+        );
 
 
         const title =
-            document.createElement("h2");
+            document.createElement("h3");
 
         title.textContent =
             movie.Title;
@@ -90,7 +100,7 @@ export function displayMovies(
             document.createElement("p");
 
         type.textContent =
-            `Type: ${movie.Type}`;
+            movie.Type;
 
 
         info.append(
@@ -106,7 +116,7 @@ export function displayMovies(
         );
 
 
-        moviesContainer.append(card);
+        container.append(card);
 
     });
 

@@ -14,33 +14,163 @@ import {
 } from "./ui.js";
 
 
+const form =
+    document.querySelector(
+        "#search-form"
+    );
 
-const searchForm =
-    document.querySelector("#search-form");
 
-
-const searchInput =
-    document.querySelector("#search-input");
+const input =
+    document.querySelector(
+        "#search-input"
+    );
 
 
 const moviesContainer =
-    document.querySelector("#movies");
+    document.querySelector(
+        "#movies"
+    );
 
 
 const loading =
-    document.querySelector("#loading");
+    document.querySelector(
+        "#loading"
+    );
 
 
 const errorMessage =
-    document.querySelector("#error-message");
+    document.querySelector(
+        "#error-message"
+    );
 
 
 const noResults =
-    document.querySelector("#no-results");
+    document.querySelector(
+        "#no-results"
+    );
 
 
+const resultCount =
+    document.querySelector(
+        "#result-count"
+    );
 
-searchForm.addEventListener(
+
+const sectionTitle =
+    document.querySelector(
+        "#section-title"
+    );
+
+
+/* =========================
+   RANDOM MOVIES
+========================= */
+
+const randomSearches = [
+    "Batman",
+    "Avengers",
+    "Spider",
+    "Harry Potter",
+    "Dune",
+    "Matrix"
+];
+
+
+function getRandomMovieName() {
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            randomSearches.length
+        );
+
+    return randomSearches[randomIndex];
+
+}
+
+
+/* =========================
+   LOAD MOVIES
+========================= */
+
+async function loadMovies(
+    movieName,
+    title
+) {
+
+    clearError(
+        errorMessage
+    );
+
+    hideNoResults(
+        noResults
+    );
+
+    showLoading(
+        loading
+    );
+
+
+    try {
+
+        const movies =
+            await searchMovies(
+                movieName
+            );
+
+
+        if (
+            !movies ||
+            movies.length === 0
+        ) {
+
+            showNoResults(
+                noResults
+            );
+
+            return;
+        }
+
+
+        sectionTitle.textContent =
+            title;
+
+
+        displayMovies(
+            movies,
+            moviesContainer,
+            resultCount
+        );
+
+
+    } catch (error) {
+
+        showError(
+            errorMessage,
+            error.message
+        );
+
+
+        moviesContainer.innerHTML =
+            "";
+
+
+    } finally {
+
+        hideLoading(
+            loading
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+form.addEventListener(
     "submit",
     async function (event) {
 
@@ -48,7 +178,7 @@ searchForm.addEventListener(
 
 
         const movieName =
-            searchInput.value.trim();
+            input.value.trim();
 
 
         if (movieName === "") {
@@ -62,54 +192,24 @@ searchForm.addEventListener(
         }
 
 
-        clearError(errorMessage);
-
-        hideNoResults(noResults);
-
-        moviesContainer.innerHTML = "";
-
-
-        showLoading(loading);
-
-
-        try {
-
-            const movies =
-                await searchMovies(movieName);
-
-
-            if (
-                !movies ||
-                movies.length === 0
-            ) {
-
-                showNoResults(noResults);
-
-                return;
-            }
-
-
-            displayMovies(
-                movies,
-                moviesContainer
-            );
-
-
-        } catch (error) {
-
-            console.log(error);
-
-            showError(
-                errorMessage,
-                error.message
-            );
-
-
-        } finally {
-
-            hideLoading(loading);
-
-        }
+        await loadMovies(
+            movieName,
+            `Search results for "${movieName}"`
+        );
 
     }
+);
+
+
+/* =========================
+   INITIAL MOVIES
+========================= */
+
+const randomMovie =
+    getRandomMovieName();
+
+
+loadMovies(
+    randomMovie,
+    "Random Movies"
 );

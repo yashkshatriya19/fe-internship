@@ -5,171 +5,315 @@
 }
 
 body {
+    background: #0b1428;
+    color: white;
     font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    color: #222;
 }
+
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 50px auto;
+    width: 94%;
+    max-width: 1350px;
+
+    margin: 0 auto;
+
+    padding: 50px 0 70px;
 }
 
 
-/* Header */
+/* =========================
+   TITLE
+========================= */
 
-.header {
+h1 {
     text-align: center;
-    margin-bottom: 30px;
-}
 
-.header h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
+    font-size: 32px;
 
-.header p {
-    color: #666;
+    margin-bottom: 35px;
 }
 
 
-/* Search */
+/* =========================
+   SEARCH
+========================= */
 
-.search-form {
+#search-form {
     display: flex;
-    justify-content: center;
+
+    max-width: 600px;
+
+    margin: 0 auto 50px;
+
     gap: 10px;
-    margin-bottom: 30px;
 }
 
-.search-form input {
-    width: 350px;
-    padding: 14px;
-    border: 1px solid #ccc;
+#search-input {
+    flex: 1;
+
+    padding: 14px 18px;
+
+    background: #1b2940;
+
+    border: 1px solid #344766;
+
     border-radius: 6px;
+
+    color: white;
+
     font-size: 16px;
+
     outline: none;
 }
 
-.search-form input:focus {
-    border-color: #222;
+#search-input::placeholder {
+    color: #8c98aa;
 }
 
-.search-form button {
-    padding: 14px 25px;
+#search-input:focus {
+    border-color: #78b4ff;
+}
+
+#search-form button {
+    padding: 0 25px;
+
     border: none;
+
     border-radius: 6px;
-    background: #222;
+
+    background: #2869e8;
+
     color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
     cursor: pointer;
-    font-size: 16px;
 }
 
-.search-form button:hover {
-    background: #444;
+#search-form button:hover {
+    background: #3d7df0;
 }
 
 
-/* Movies */
+/* =========================
+   SECTION
+========================= */
 
-.movies {
+.section-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 24px;
+}
+
+#result-count {
+    color: #7f8ba0;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   MOVIE GRID
+========================= */
+
+#movies {
     display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(180px, 1fr)
-    );
 
-    gap: 25px;
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 18px;
 }
 
 
-/* Movie Card */
+/* =========================
+   MOVIE CARD
+========================= */
 
 .movie-card {
-    background: white;
+    background: #0d172b;
+
+    border: 2px dashed #78b4ff;
+
     border-radius: 10px;
+
     overflow: hidden;
 
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 
-    transition: transform 0.2s;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .movie-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+
+    border-color: white;
 }
+
+
+/* =========================
+   POSTER
+========================= */
 
 .movie-card img {
     width: 100%;
-    height: 280px;
-    object-fit: cover;
+
+    height: 330px;
+
     display: block;
+
+    object-fit: cover;
 }
+
+
+/* =========================
+   MOVIE INFO
+========================= */
 
 .movie-info {
-    padding: 15px;
+    min-height: 100px;
+
+    padding: 12px 8px;
+
+    text-align: center;
 }
 
-.movie-info h2 {
-    font-size: 18px;
+.movie-info h3 {
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1.5;
+
     margin-bottom: 8px;
 }
 
 .movie-info p {
-    color: #666;
-    margin-bottom: 5px;
+    color: #aeb7c6;
+
+    font-size: 13px;
+
+    margin-top: 4px;
 }
 
 
-/* Loading */
+/* =========================
+   LOADING
+========================= */
 
-.loading {
+#loading {
     display: none;
+
     text-align: center;
-    margin: 30px;
-    font-size: 18px;
+
+    color: #78b4ff;
+
+    margin-bottom: 25px;
 }
 
 
-/* Error */
+/* =========================
+   ERROR
+========================= */
 
-.error {
+#error-message {
     text-align: center;
-    color: #d32f2f;
-    margin-bottom: 20px;
+
+    color: #ff6868;
+
+    margin-bottom: 25px;
 }
 
 
-/* No results */
+/* =========================
+   NO RESULTS
+========================= */
 
-.no-results {
+#no-results {
     display: none;
+
     text-align: center;
-    margin-top: 40px;
-    color: #666;
+
+    color: #8994a7;
+
+    padding: 60px;
 }
 
 
-/* Mobile */
+/* =========================
+   TABLET
+========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
 
-    .search-form {
+    #movies {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 92%;
+    }
+
+    #movies {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+    .movie-card img {
+        height: 250px;
+    }
+
+    #search-form {
         flex-direction: column;
     }
 
-    .search-form input {
-        width: 100%;
+    #search-form button {
+        padding: 13px;
     }
 
-    .search-form button {
-        width: 100%;
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+    .movie-card img {
+        height: 220px;
     }
 
-    .header h1 {
-        font-size: 30px;
+    .movie-info h3 {
+        font-size: 13px;
     }
 
 }
